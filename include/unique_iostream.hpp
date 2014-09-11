@@ -2,14 +2,15 @@
 
 //          Copyright Sundeep S. Sangha 2013 - 2014.
 
-#ifndef STDL_UNQIUE_IOSTREAM_HPP
-#define STDL_UNQIUE_IOSTREAM_HPP
+#ifndef SMART_STREAM_UNQIUE_IOSTREAM_HPP
+#define SMART_STREAM_UNQIUE_IOSTREAM_HPP
 
 #include <streambuf>
 #include <istream>
 #include <memory>
 
-namespace smart_stream{
+namespace smart_stream {
+
 /* unique_iostream
 
 Provides a stream with auto_rdbuf taking a unique_ptr which will manage
@@ -103,82 +104,9 @@ private:
   ptr_type uqptr;
 };
 
-/* unique_stream ctor */
-template <typename CharT, typename Traits, typename Deleter>
-basic_unique_iostream<CharT,Traits,Deleter>::basic_unique_iostream(
-  typename basic_unique_iostream<CharT,Traits,Deleter>::ptr_type && _ptr
-)
-  : std::basic_iostream<CharT,Traits> (_ptr.get())
-  , uqptr (std::forward<typename basic_unique_iostream<CharT,Traits
-                       ,Deleter>::ptr_type>(_ptr)){
-}
-
-/* unique_stream ctor */
-template <typename CharT, typename Traits, typename Deleter>
-basic_unique_iostream<CharT,Traits,Deleter>::basic_unique_iostream(
-  std::basic_streambuf<CharT,Traits> * const _ptr
-)
-  : std::basic_iostream<CharT,Traits> (_ptr)
-  , uqptr (_ptr){
-}
-
-/* unique_stream move ctor */
-template <typename CharT, typename Traits, typename Deleter>
-basic_unique_iostream<CharT,Traits,Deleter>::basic_unique_iostream(
-  basic_unique_iostream<CharT,Traits,Deleter> && _obj
-)
-  : uqptr (_obj.uqptr){
-}
-
-/* unique_stream operator = */
-template <typename CharT, typename Traits, typename Deleter>
-basic_unique_iostream<CharT,Traits,Deleter> &
-basic_unique_iostream<CharT,Traits,Deleter>::operator=(
-  basic_unique_iostream<CharT,Traits,Deleter> && _obj
-){
-this->uqptr = _obj.uqptr;
-return *this;
-}
-
-/* unique_stream dtor */
-template <typename CharT, typename Traits, typename Deleter>
-basic_unique_iostream<CharT,Traits,Deleter>::~basic_unique_iostream(
-){
-}
-
-/* unique_stream auto_rdbuf */
-template <typename CharT, typename Traits, typename Deleter>
-typename basic_unique_iostream<CharT,Traits,Deleter>::ptr_type
-basic_unique_iostream<CharT,Traits,Deleter>::auto_rdbuf(
-  typename basic_unique_iostream<CharT,Traits,Deleter>::ptr_type && _ptr
-){
-this->flush();
-this->uqptr.swap(_ptr);
-return std::forward<basic_unique_iostream<CharT,Traits,Deleter>
-                    ::ptr_type>(_ptr);
-}
-
-/* unique_ptr auto_rdbuf */
-template <typename CharT, typename Traits, typename Deleter>
-typename basic_unique_iostream<CharT,Traits,Deleter>::ptr_type
-basic_unique_iostream<CharT,Traits,Deleter>::auto_rdbuf(
-){
-this->flush();
-this->rdbuf(nullptr);
-typename basic_unique_iostream<CharT,Traits,Deleter>
-      ::ptr_type temp(this->uqptr.release());
-return std::move(temp);
-}
-
-/* unique_stream rebind */
-template <typename CharT, typename Traits, typename Deleter>
-std::basic_streambuf<CharT,Traits> *
-basic_unique_iostream<CharT,Traits,Deleter>::rebind(
-){
-return this->rdbuf(this->uqptr.get());
-}
-
 typedef basic_unique_iostream<char> unique_stream;
 typedef basic_unique_iostream<wchar_t> wunique_stream;
-}
+
+} /* smart_stream */
+#include "bits/unique_iostream.tcc"
 #endif
