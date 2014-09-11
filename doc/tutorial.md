@@ -22,7 +22,7 @@ The examples use the following terms;
 To set the streambuf object, simply either wrap the pointer in a `smart
 pointer` or pass the pointer to the `smart_stream` ctor.
 
-[example: ](../example/)
+[example: set_unique_buf.cpp](../example/set_unique_buf.cpp)
 ```c++
 unique_stream output(new stringstream());
 
@@ -31,7 +31,7 @@ unique_ptr<streambuf> ptr(new stringstream());
 unique_stream output2(ptr);
 ```
 
-[example: ](../example/)
+[example: set_shared_buf.cpp](../example/set_shared_buf.cpp)
 ```c++
 shared_stream output(new stringstream());
 
@@ -80,22 +80,38 @@ if (ptr != stream.rdbuf())
   delete ptr;
 ```
 
+5 Using Derived Streambuf
+--------------------------------------------------------------------------
+When using smart streams the streambuf is used as a `std::streambuf` type.
+This means that any additional funciality is lost when accessing the
+streambuf directly via smart streams. To use the derived streambuf without
+downcasting, either the derived streambuf must kept externally.
+
+[example: external_streambuf.cpp](../example/external_streambuf.cpp)
+```c++
+
+shared_ptr<stringstream> ss(new stringstream());
+shared_stream out(ss);
+
+out << "test";
+
+```
+
 3 Unique Stream
 ==========================================================================
 1 Custom Deleter
 --------------------------------------------------------------------------
-Release ownership of `std::streambuf`
 
+2 Release ownership of `std::streambuf`
+--------------------------------------------------------------------------
 To release ownership while avoiding calling the deleter.
 
-1. client takes ownership.
-   `auto ptr = stream.auto_rdbuf();`
-
-2. take raw buffer pointer.
-   `auto raw_ptr = ptr.get();`
-
-3. call release of the managed buffer.
-   `ptr.release();`
+[example: unique_release.cpp](../example/unique_release.cpp)
+```c++
+auto ptr = stream.auto_rdbuf(); /* client takes ownership. */
+auto raw_ptr = ptr.get(); /* take raw buffer pointer. */
+ptr.release(); /* call release of the managed buffer. */
+```
 
 4 Shared stream examples
 ==========================================================================
