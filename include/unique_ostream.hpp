@@ -36,7 +36,7 @@ template <
 class  basic_unique_ostream : public std::basic_ostream<CharT,Traits>{
 public:
   typedef std::unique_ptr<std::basic_streambuf<CharT,Traits>
-                                                   , Deleter> ptr_type;
+                                                   , Deleter>   ptr_type;
 
   typedef typename std::basic_ostream<CharT,Traits>::char_type char_type;
 
@@ -88,7 +88,9 @@ public:
   Buffer.
   */
   ptr_type
-  auto_rdbuf(ptr_type &&);
+  auto_rdbuf(
+    ptr_type &&
+  );
 
   /*
   Returns previous ptr_type, setting the internal and stream Buffer to
