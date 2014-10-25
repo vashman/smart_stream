@@ -5,7 +5,7 @@ Status: Open Alpha Development
 Documentation
 ==========================================================================
 + [Tutorial](./doc/tutorial.md)
-+ [Building](./doc/build.md)
++ [Building](./build/build.md)
 + [Design Overview](./doc/proposal.md)
 + [Implementation Details](./doc/implementation.md)
 
