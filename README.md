@@ -2,6 +2,9 @@ Smart Stream
 ==========================================================================
 Status: Open Alpha Development
 
+Stream implementation that has focus on managing the internal stream
+buffer instance.
+
 Documentation
 ==========================================================================
 + [Tutorial](./doc/tutorial.md)
