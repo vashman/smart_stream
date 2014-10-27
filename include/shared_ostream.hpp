@@ -2,8 +2,8 @@
 
 //          Copyright Sundeep S. Sangha 2013 - 2014.
 
-#ifndef SMART_STREAM_SHARED_STREAM_HPP
-#define SMART_STREAM_SHARED_STREAM_HPP
+#ifndef SMART_STREAM_SHARED_OSTREAM_HPP
+#define SMART_STREAM_SHARED_OSTREAM_HPP
 
 #include <streambuf>
 #include <ostream>
