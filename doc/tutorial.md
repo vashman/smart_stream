@@ -12,6 +12,11 @@ The examples use the following terms;
 ==========================================================================
 1. Table of Contents
 2. Unique/Shared Stream
+  1. Set a streambuf
+  2. Unmanged stream via raw pointer
+  3. Force switch to managed streambuf
+  4. Detect and delete unmanaged streambuf
+  5. Using the derived streambuf
 3. Unique Stream
 4. Shared Stream
 
@@ -33,6 +38,7 @@ unique_stream output2(ptr);
 ```
 
 [example: set_shared_buf.cpp](../example/set_shared_buf.cpp)
+
 ```c++
 shared_stream output(new stringstream());
 
@@ -46,7 +52,8 @@ shared_stream output2(ptr);
 Useing a raw `std::streambuf` pointer it is possible to use a smart_stream
 type as a regular i/o stream.
 
-[example: ](../example/)
+[example: unmanaged.cpp](../example/unmanaged.cpp)
+
 ```c++
 stream.rdbuf(new filebuf());
 ```
@@ -56,7 +63,7 @@ stream.rdbuf(new filebuf());
 Make the smart_stream set the internal streambuf to the manged one. Also
 look at 2-4 for deleting the previous ptr.
 
-[example: ](../example/)
+[example: unmanaged.cpp](../example/unmanaged.cpp)
 ```c++
 stream.rebind();
 ```
@@ -72,6 +79,7 @@ The pointer can be re-bound and the un-manged one delted, or it could just
 be checked and left alone.
 
 [example: ](../example/)
+
 ```c++
 /* rebind first is optional */
 auto ptr = stream.rebind();
@@ -89,8 +97,8 @@ streambuf directly via smart streams. To use the derived streambuf without
 downcasting, the derived streambuf must kept externally.
 
 [example: external_streambuf.cpp](../example/external_streambuf.cpp)
-```c++
 
+```c++
 shared_ptr<stringstream> ss(new stringstream());
 shared_stream out(ss);
 
