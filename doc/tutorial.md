@@ -4,9 +4,9 @@ Examples are shown here with the realative snippt, full working examples
 can be found in the examples directory.
 
 The examples use the following terms;
-*) Stream: the stream object, `std::istream`, `std::ostream`
-*) Managed:
-*) Buffer: the `std::streambuf` object
+* Stream: the stream object, `std::istream`, `std::ostream`
+* Managed:
+* Buffer: the `std::streambuf` object
 
 1 Table of Contents
 ==========================================================================
@@ -23,6 +23,7 @@ To set the streambuf object, simply either wrap the pointer in a `smart
 pointer` or pass the pointer to the `smart_stream` ctor.
 
 [example: set_unique_buf.cpp](../example/set_unique_buf.cpp)
+
 ```c++
 unique_stream output(new stringstream());
 
@@ -85,7 +86,7 @@ if (ptr != stream.rdbuf())
 When using smart streams the streambuf is used as a `std::streambuf` type.
 This means that any additional funciality is lost when accessing the
 streambuf directly via smart streams. To use the derived streambuf without
-downcasting, either the derived streambuf must kept externally.
+downcasting, the derived streambuf must kept externally.
 
 [example: external_streambuf.cpp](../example/external_streambuf.cpp)
 ```c++
@@ -94,7 +95,6 @@ shared_ptr<stringstream> ss(new stringstream());
 shared_stream out(ss);
 
 out << "test";
-
 ```
 
 3 Unique Stream
