@@ -19,24 +19,24 @@ the base class's rdbuf(streambuf*), which will allow a client to use a
 unmanged streambuf.
 
 The basic_shared_ostream takes the following template arguments;
-1. std::basic_ostream<CharT,Traits>, is the base stream object to inherit from such as;
+1. std::basic_ostream<charT,traits>, is the base stream object to inherit from such as;
    std::basic_ostream, std::basic_istream, std::basic_iostream.
 
-2. std::basic_streambuf<CharT,Traits>, is the base streams streambuffer type, defaulting to
+2. std::basic_streambuf<charT,traits>, is the base streams streambuffer type, defaulting to
    std::basic_streambuf taking the streams char_type and traits_type.
 
 */
-template <typename CharT, typename Traits = std::char_traits<CharT> >
-class  basic_shared_ostream : public std::basic_ostream<CharT,Traits>{
+template <typename charT, typename traits = std::char_traits<charT> >
+class  basic_shared_ostream : public std::basic_ostream<charT,traits>{
 public:
-  typedef std::shared_ptr<std::basic_streambuf<CharT,Traits>> ptr_type;
+  typedef std::shared_ptr<std::basic_streambuf<charT,traits>> ptr_type;
 
-  typedef typename std::basic_ostream<CharT,Traits>::char_type char_type;
-  typedef typename std::basic_ostream<CharT,Traits>
+  typedef typename std::basic_ostream<charT,traits>::char_type char_type;
+  typedef typename std::basic_ostream<charT,traits>
                                      ::traits_type traits_type;
-  typedef typename std::basic_ostream<CharT,Traits>::int_type int_type;
-  typedef typename std::basic_ostream<CharT,Traits>::pos_type pos_type;
-  typedef typename std::basic_ostream<CharT,Traits>::off_type off_type;
+  typedef typename std::basic_ostream<charT,traits>::int_type int_type;
+  typedef typename std::basic_ostream<charT,traits>::pos_type pos_type;
+  typedef typename std::basic_ostream<charT,traits>::off_type off_type;
 
   explicit
   basic_shared_ostream(
@@ -53,7 +53,7 @@ public:
 
   explicit
   basic_shared_ostream(
-    std::basic_streambuf<CharT,Traits> * const
+    std::basic_streambuf<charT,traits> * const
   );
 
   /*
@@ -63,39 +63,39 @@ public:
   template <typename Deleter>
   explicit
   basic_shared_ostream(
-    std::basic_streambuf<CharT,Traits> *
+    std::basic_streambuf<charT,traits> *
   , Deleter
   );
 
   /*
   Template argument Allocator, shared_ptr allocator type, defaults to
-  std::allocator for std::basic_streambuf<CharT,Traits> template type.
+  std::allocator for std::basic_streambuf<charT,traits> template type.
   Deleter template argument is same as above ctor.
   */
   template <typename Deleter, typename Allocator>
   explicit
   basic_shared_ostream(
-    std::basic_streambuf<CharT,Traits> *
+    std::basic_streambuf<charT,traits> *
   , Deleter
   , Allocator
   );
 
   basic_shared_ostream(
-    basic_shared_ostream<CharT,Traits> &&
+    basic_shared_ostream<charT,traits> &&
   );
 
-  basic_shared_ostream<CharT,Traits> &
+  basic_shared_ostream<charT,traits> &
   operator=(
-     basic_shared_ostream<CharT,Traits> &&
+     basic_shared_ostream<charT,traits> &&
   );
 
   basic_shared_ostream(
-     basic_shared_ostream<CharT,Traits> const &
+     basic_shared_ostream<charT,traits> const &
   ) = delete;
 
-  basic_shared_ostream<CharT,Traits> &
+  basic_shared_ostream<charT,traits> &
   operator=(
-     basic_shared_ostream<CharT,Traits> const &
+     basic_shared_ostream<charT,traits> const &
   ) = delete;
 
   ~basic_shared_ostream();
@@ -122,7 +122,7 @@ public:
   Sets the underlying stream buffer to ptr_type's pointer, while returning
   previous pointer.
   */
-  std::basic_streambuf<CharT,Traits> *
+  std::basic_streambuf<charT,traits> *
   rebind();
 
 private:
